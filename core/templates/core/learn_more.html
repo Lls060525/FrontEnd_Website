@@ -1,17 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FutureHub | Engineering</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: #fff; }
-    </style>
-</head>
-<body class="h-screen flex flex-col items-center justify-center text-center p-10">
-    <h1 class="text-6xl font-black mb-6 uppercase tracking-tighter">Beyond The Stride.</h1>
-    <p class="max-w-2xl opacity-60 text-lg">You've entered the Lab. Here, we dissect the carbon-fiber architecture and metabolic response systems of the FH-Elite series.</p>
-    <a href="{% url 'home' %}" class="mt-10 border border-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all uppercase text-xs font-bold">Back to Studio</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}FutureHub | Global Trends{% endblock %}
+
+{% block extra_css %}
+    /* Specific styles for this page's content */
+    .hero-text {
+        font-size: 6vw;
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+    }
+{% endblock %}
+
+{% block content %}
+    <section class="min-h-screen flex flex-col justify-center items-center text-center px-10 pt-32">
+        <h1 class="hero-text mb-12" id="title">
+            Defining The <br> Global Standard
+        </h1>
+        
+        <div class="max-w-4xl space-y-8 text-xl md:text-2xl font-medium leading-relaxed opacity-0" id="content">
+            <p>
+                FutureHub stands at the intersection of high-performance engineering and global street culture. 
+                We don't just follow the world's trendiest movements; we accelerate them through experimental silhouettes and proprietary materials.
+            </p>
+            <p>
+                Recognized worldwide as the pinnacle of contemporary footwear, every release from our studio represents a calculated shift in modern fashion. 
+                By merging sustainable craftsmanship with aggressive design, FutureHub remains the primary destination for those who demand to lead rather than follow.
+            </p>
+        </div>
+
+        <a href="{% url 'home' %}" class="mt-16 border-[3px] border-black px-16 py-5 rounded-full text-sm font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all opacity-0" id="back-btn">
+            Back to Studio
+        </a>
+    </section>
+
+    <footer class="py-20 flex flex-col items-center justify-center border-t border-gray-100 gap-4">
+        <div class="text-3xl font-black tracking-tighter">FutureHub_</div>
+        <p class="text-xs font-bold uppercase tracking-[0.5em] opacity-30">Footwear Division © 2026</p>
+    </footer>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        // Entrance animation specific to this page
+        window.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+
+            tl.from("#title", {
+                y: 50,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out"
+            })
+            .to("#content", {
+                opacity: 0.7,
+                y: -20,
+                duration: 1,
+                ease: "power2.out"
+            }, "-=0.6")
+            .to("#back-btn", {
+                opacity: 1,
+                duration: 0.8
+            }, "-=0.4");
+        });
+    </script>
+{% endblock %}
