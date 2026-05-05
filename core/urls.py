@@ -8,6 +8,7 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('collections/', views.collections_view, name='collections'),
     path('learn-more/', views.learn_more, name='learn_more'),
 ]
 

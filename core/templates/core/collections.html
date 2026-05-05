@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}FutureHub | Collections Catalog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .section-header { font-size: 3.5vw; font-weight: 800; letter-spacing: -0.02em; color: white; }
+    .product-card { background: #111; border: 1px solid #222; transition: all 0.4s ease; }
+    .product-card:hover { border-color: #444; transform: translateY(-5px); }
+    .category-scroll-item { min-width: 300px; height: 450px; border-radius: 20px; overflow: hidden; position: relative; }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="bg-black min-h-screen pt-32 pb-20">
+    <!-- Top Horizontal Category Section (Matches image_1d3a20.png) -->
+    <section class="px-6 md:px-12 mb-20">
+        <div class="flex gap-6 overflow-x-auto pb-8 no-scrollbar">
+            {% for cat in categories %}
+            <div class="category-scroll-item flex-shrink-0">
+                <img src="{{ cat.image.url }}" class="w-full h-full object-cover" alt="{{ cat.title }}">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
+                    <span class="text-[10px] font-bold tracking-[0.3em] text-white/50 uppercase mb-2">{{ cat.subtitle }}</span>
+                    <h2 class="text-3xl font-black text-white uppercase">{{ cat.title }}</h2>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Product Catalog by Sections -->
+    {% for section in catalog_sections %}
+    <section class="px-6 md:px-12 mb-24">
+        <div class="mb-10 border-b border-white/10 pb-6">
+            <h2 class="section-header uppercase">{{ section.title }}</h2>
+            <p class="text-gray-500 font-medium tracking-wide uppercase text-sm mt-2">{{ section.subtitle }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for product in section.products.all %}
+            <div class="product-card rounded-3xl overflow-hidden group">
+                <div class="h-80 overflow-hidden bg-[#1a1a1a]">
+                    <img src="{{ product.image.url }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ product.name }}">
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-white uppercase">{{ product.name }}</h3>
+                        <span class="text-white font-black">RM {{ product.price }}</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">{{ product.description }}</p>
+                    <button class="w-full py-3 bg-white text-black text-xs font-black uppercase tracking-widest rounded-full hover:bg-gray-200 transition-colors">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-600 italic">No products available in this section yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+</main>
+{% endblock %}
